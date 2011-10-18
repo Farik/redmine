@@ -5,6 +5,7 @@
     <th>#</th>
     <th><%=l(:field_project)%></th>
     <th><%=l(:field_tracker)%></th>
+    <th><%=l(:field_status)%></th>
     <th><%=l(:field_subject)%></th>
     </tr></thead>
     <tbody>
@@ -16,8 +17,9 @@
       </td>
       <td class="project"><%= link_to_project(issue.project) %></td>
       <td class="tracker"><%=h issue.tracker %></td>
+      <td class="tracker"><%=h issue.status %></td>
       <td class="subject">
-        <%= link_to h(truncate(issue.subject, :length => 60)), :controller => 'issues', :action => 'show', :id => issue %> (<%=h issue.status %>)
+        <%= link_to h(truncate(issue.subject, :length => 60)), :controller => 'issues', :action => 'show', :id => issue %>
       </td>
     </tr>
     <% end %>
