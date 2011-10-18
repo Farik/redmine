@@ -1,11 +1,26 @@
-<%= l(:text_issue_updated, :id => "##{@issue.id}", :author => h(@journal.user)) %>
+<h3><%= link_to "#{@issue.tracker.name} ##{@issue.id}: #{@issue.subject}", @issue_url %></h3>
 
-<ul>
-<% for detail in @journal.details %>
-    <li><%= show_detail(detail, true) %></li>
-<% end %>
-</ul>
+<fieldset style="margin: 1em 0.25em; border-color: rgb(0, 102, 153) -moz-use-text-color; border-left: medium none; border-right: medium none;">
+  <legend style="color: rgb(0, 102, 153);"><small><em>Changes</em> by <strong><%= @journal.user %></strong></small></legend>
+  <ul>
+  <% for detail in @journal.details %>
+      <li><%= show_detail(detail, true) %></li>
+  <% end %>
+  </ul>
+  
+  <%= textilizable(@journal, :notes, :only_path => false) %>
 
-<%= textilizable(@journal, :notes, :only_path => false) %>
-<hr />
-<%= render :partial => "issue_text_html", :locals => { :issue => @issue, :issue_url => @issue_url } %>
+</fieldset>
+
+
+<table style="font-size:80%;color:#999;">
+      <tr>
+          <th align="right">From:</th><td style="padding-right: 20px"> <%= @issue.author %></th><th align="right">To:</th><td><%= @issue.assigned_to %></td>
+      </tr>
+      <tr><th align="right"><%=l(:field_status)%>:</th><td style="padding-right: 20px"> <%= @issue.status %></td><th align="right"><%=l(:field_priority)%>:</th><td><%= @issue.priority %></td></tr>
+      <tr><th align="right"><%=l(:field_category)%>:</th><td style="padding-right: 20px"> <%= @issue.category %></td><th align="right"><%=l(:field_fixed_version)%>:</th><td><%= @issue.fixed_version %></td></tr>
+      <% @issue.custom_values.each do |c| %>
+        <tr><td><%= c.custom_field.name %>: <%= show_value(c) %></td></tr>
+      <% end %>
+  </table>
+</div>
